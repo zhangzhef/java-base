@@ -4,6 +4,7 @@ import java.lang.reflect.*;
 import java.util.Scanner;
 
 /**
+ *  输入一个class，打印他的 Field， Method，Constructor
  * @author zzf
  * @date 2018/9/19 08:18.
  */
@@ -34,13 +35,13 @@ public class ReflecttionTest {
             }
             System.out.println(" {");
 
-            printConstructors(cl);
+//            printConstructors(cl);
             System.out.println();
 
             printMethods(cl);
             System.out.println();
 
-            printFields(cl);
+//            printFields(cl);
 
             System.out.println("}");
         } catch (Exception e) {
@@ -55,7 +56,7 @@ public class ReflecttionTest {
         for (Field field : fields) {
             String modifier = Modifier.toString(field.getModifiers());
 
-            System.out.println(modifier + " " + field.getType().getTypeName() + " " + field.getName());
+            System.out.println("    " + modifier + " " + field.getType().getTypeName() + " " + field.getName());
         }
     }
 
@@ -67,12 +68,12 @@ public class ReflecttionTest {
 
             Class<?> returnType = method.getReturnType();
 
-            System.out.print(modifier + " " + returnType + " " +  method.getName() + "(" );
+            System.out.print("    " + modifier + " " + returnType + " " +  method.getName() + "(" );
 
             Parameter[] parameters = method.getParameters();
 
             for (int i = 0; i < parameters.length ; i++) {
-                System.out.print(parameters[i].getName());
+                System.out.print(parameters[i].getParameterizedType().getTypeName() + " " + parameters[i].getName());
                 if (i < parameters.length - 1) {
                     System.out.print(", ");
                 }
@@ -90,7 +91,7 @@ public class ReflecttionTest {
         for (Constructor constructor : constructors) {
 
             String modifier = Modifier.toString(constructor.getModifiers());
-            System.out.print(modifier + " " + constructor.getName() + "(");
+            System.out.print("    " + modifier + " " + constructor.getName() + "(");
 
             Parameter[] parameters = constructor.getParameters();
             for (int i = 0; i < parameters.length; i++) {
